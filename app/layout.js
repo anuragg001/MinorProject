@@ -1,19 +1,55 @@
+import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import Header from "@/components/header";
+import { ConvexClientProvider } from "./ConvexClientProvider";
+import { ClerkProvider } from "@clerk/nextjs";
+import {dark} from "@clerk/themes";
 
-export const metadata ={
-  title: "Spott",
-  description: "Discover and create amazing events",
+export const metadata = {
+  title: "Eventra",
+  description: "An event management platform built with Next.js and Tailwind CSS.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={``}>
-      {/* Header */}
+    <html lang="en" suppressHydrationWarning >
 
-        {children}
+      <body className={`bg-linear-to-br  from-gray-950 via-zinc-900 to-stone-900 text-white`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <ClerkProvider
+            appearance={{
+              theme: dark,
+            }}
+          >
+
+            <ConvexClientProvider>
+              {/* Header */}
+              <Header />
+
+              <main className="min-h-screen relative container mx-auto pt-40 md:pt-32">
+
+                <div className="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+                  <div className="absolute top-0 left-1/4 w-96 h-96  bg-pink-600/20 rounded-full blur-3xl" />
+                  <div className="absolute bottom-0 right-1/4 w-96 h-96  bg-orange-600/20 rounded-full blur-3xl" />
+                </div>
+
+                <div className="relative z-10"> {children}</div>
+              </main>
+            </ConvexClientProvider>
+          </ClerkProvider>
+        </ThemeProvider>
 
         {/* Footer */}
+        <footer className="border-t border-gray-800/50 py-8 px-6 max-w-7xl  mx-auto">
+          <div className="text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} Eventra. All rights reserved.
+          </div>
+        </footer>
       </body>
     </html>
   );
