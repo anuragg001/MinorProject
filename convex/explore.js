@@ -1,6 +1,7 @@
 import { query } from "./_generated/server";
 import { v } from "convex/values";
 
+//api for events exploare
 // Get featured events (high registration count or recent)
 export const getFeaturedEvents = query({
   args: {

@@ -11,6 +11,7 @@ import { useStoreUser } from '@/hooks/use-store-user'
 import { Building, Plus, Ticket } from 'lucide-react'
 import OnboardingModal from './onboarding-model'
 import { useOnboarding } from '@/hooks/use-onboarding'
+import SearchLocationBar from './search-location-bar'
 
 
 
@@ -34,6 +35,9 @@ const Header = () => {
 
 
           {/* Search &location -large view */}
+          <div className="hidden md:flex flex-1 justify-center">
+          <SearchLocationBar/>
+          </div>
 
           {/* right side action  */}
           <div className='flex items-center'>
@@ -79,6 +83,9 @@ const Header = () => {
         </div>
 
         {/* mobile view search and location */}
+        <div className="md:hidden border-t px-3 py-3">
+          <SearchLocationBar/>
+          </div>
 
         {isLoading && (<div className='absolute bottom-0 left-0 w-full'>
           <BarLoader width={"100%"} color='#a855f7' />
