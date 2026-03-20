@@ -29,7 +29,7 @@ export default defineSchema({
     events: defineTable({
         title: v.string(),
         description: v.string(),
-        slug: v.number(),
+        slug: v.string(),
 
         //organsiser
         organizerId: v.id("users"),
@@ -98,5 +98,5 @@ registrations: defineTable({
     .index("by_user", ["userId"])
     .index("by_event_user", ["eventId", "userId"])
     .index("by_qr_code", ["qrCode"]),
-    
+
 });

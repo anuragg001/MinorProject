@@ -4,6 +4,7 @@ import Header from "@/components/header";
 import { ConvexClientProvider } from "./ConvexClientProvider";
 import { ClerkProvider } from "@clerk/nextjs";
 import {dark} from "@clerk/themes";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata = {
   title: "Eventra",
@@ -50,6 +51,7 @@ export default function RootLayout({ children }) {
             &copy; {new Date().getFullYear()} Eventra. All rights reserved.
           </div>
         </footer>
+        <Toaster richColors/>
       </body>
     </html>
   );
