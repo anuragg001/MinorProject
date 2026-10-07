@@ -1,6 +1,6 @@
 "use client"
 
-import { Show, SignInButton, SignUpButton, useAuth, UserButton } from '@clerk/nextjs'
+import { Show, SignInButton, useAuth, UserButton } from '@clerk/nextjs'
 import Image from 'next/image'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -9,11 +9,11 @@ import { Authenticated, Unauthenticated } from 'convex/react'
 import { BarLoader } from 'react-spinners'
 import { useStoreUser } from '@/hooks/use-store-user'
 import { Building, Crown, Plus, Ticket } from 'lucide-react'
-import OnboardingModal from './onboarding-model'
+import OnboardingModal from './onboarding-modal'
 import { useOnboarding } from '@/hooks/use-onboarding'
 import SearchLocationBar from './search-location-bar'
 import { Badge } from './ui/badge'
-import UpgradeModal from './upgrade-model'
+import UpgradeModal from './upgrade-modal'
 
 
 
@@ -35,7 +35,7 @@ const Header = () => {
           {/* logo */}
           <Link href={"/"}
             className='flex items-center gap-2'>
-            <Image src="/logo3.png" alt='Logo' width={500} height={500} className='w-full h-11' priority />
+            <Image src="/eventra_logo.png" alt='Logo' width={500} height={500} className='w-full h-11' priority />
 
             {/* pro badge */}
             {hasPro && (

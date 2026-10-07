@@ -1,5 +1,5 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { mutation, query, internalQuery } from "./_generated/server";
 import { internal } from "./_generated/api";
 export const store = mutation({
   args: {},
@@ -42,23 +42,27 @@ export const store = mutation({
 });
 
 
+export const getCurrentUserAuth = async (ctx) => {
+    const identity = await ctx.auth.getUserIdentity();
+    if(!identity){
+        return null;
+    }
+
+    const user = await ctx.db.query("users")
+    .withIndex("by_token", (q) =>
+        q.eq("tokenIdentifier", identity.tokenIdentifier)
+    )
+    .unique();
+
+    if(!user){
+        throw new Error("User not found in database");
+    }
+    return user;
+};
+
 export const getCurrentUser = query({
     handler:async (ctx)=>{
-        const identity = await ctx.auth.getUserIdentity();
-        if(!identity){
-            return null;
-        }
-
-        const user = await ctx.db.query("users")
-        .withIndex("by_token", (q) =>
-            q.eq("tokenIdentifier", identity.tokenIdentifier)
-        )
-        .unique();
-
-        if(!user){
-            throw new Error("User not found in database");
-        }
-        return user;
+        return await getCurrentUserAuth(ctx);
     }
 })
 
@@ -74,7 +78,7 @@ export const completeOnboarding = mutation({
     interests:v.array(v.string()),
   },
    handler: async (ctx, args) => {
-    const user = await ctx.runQuery(internal.users.getCurrentUser);
+    const user = await getCurrentUserAuth(ctx);
 
     //update
     await ctx.db.patch(user._id, {
@@ -87,3 +91,10 @@ export const completeOnboarding = mutation({
     return user._id;
   },
 })
+
+export const getCurrentUserForAction = internalQuery({
+  args: { tokenIdentifier: v.string() },
+  handler: async (ctx, args) => {
+    return await ctx.db.query("users").withIndex("by_token", (q) => q.eq("tokenIdentifier", args.tokenIdentifier)).unique();
+  }
+});

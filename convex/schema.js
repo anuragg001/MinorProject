@@ -92,11 +92,35 @@ registrations: defineTable({
     // Status
     status: v.union(v.literal("confirmed"), v.literal("cancelled")),
 
+    // Networking
+    isPublic: v.optional(v.boolean()),
+
     registeredAt: v.number(),
   })
     .index("by_event", ["eventId"])
     .index("by_user", ["userId"])
     .index("by_event_user", ["eventId", "userId"])
     .index("by_qr_code", ["qrCode"]),
+
+waitlists: defineTable({
+    eventId: v.id("events"),
+    userId: v.id("users"),
+    status: v.union(v.literal("waiting"), v.literal("promoted"), v.literal("expired")),
+    joinedAt: v.number(),
+    promotedAt: v.optional(v.number()),
+})
+.index("by_event", ["eventId"])
+.index("by_user", ["userId"])
+.index("by_event_user", ["eventId", "userId"])
+.index("by_event_status", ["eventId", "status"]),
+
+follows: defineTable({
+    followerId: v.id("users"),
+    organizerId: v.id("users"),
+    createdAt: v.number(),
+})
+.index("by_follower", ["followerId"])
+.index("by_organizer", ["organizerId"])
+.index("by_follower_organizer", ["followerId", "organizerId"]),
 
 });

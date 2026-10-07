@@ -1,0 +1,9 @@
+# Eventra Project Overview
+
+Eventra is a web-based AI-assisted Event Discovery and Booking Platform designed to simplify how people find, create, and manage events online. In today’s fast-moving environment, users often miss relevant events because information is scattered across multiple sources, while organizers face difficulty promoting events to the right audience. Traditional event coordination methods are time-consuming, less personalized, and inefficient when participants are distributed across different cities.
+
+The Eventra platform addresses these challenges by providing a centralized digital system where attendees can explore events based on category, popularity, and location, and organizers can create events through a structured interface with guided validation. Organizers can publish event details such as date, time, venue, ticket type, and capacity, while users can quickly discover nearby or trending events through dynamic browsing and search features.
+
+Users can access the platform directly through a browser without requiring additional software, making the experience convenient on both desktop and mobile devices. The system uses a modern full-stack architecture with Next.js and React for frontend development, Convex for backend logic and real-time database operations, and Clerk for secure authentication and user management. It also includes onboarding-based personalization, allowing users to set interests and location for more relevant event recommendations.
+
+The platform includes core features such as user authentication, onboarding, event creation, category-based exploration, location-aware discovery, search functionality, and organizer controls. Overall, Eventra demonstrates how modern web technologies and AI-oriented workflows can improve accessibility, efficiency, and personalization in the event ecosystem.
